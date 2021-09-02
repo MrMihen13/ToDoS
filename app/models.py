@@ -2,6 +2,7 @@ import datetime
 
 from werkzeug.security import generate_password_hash, check_password_hash
 from pydantic import BaseModel
+from sqlalchemy import BLOB
 
 from app import db
 
@@ -17,7 +18,7 @@ class ValidationModel:
         done: bool
         timestamp: str
         user_id: int
-        file: int  # Переделать тип данных для файла
+        file: BLOB
 
     class UserWithoutPassword(BaseModel):
         """Модель пользователя для FrontEnd"""

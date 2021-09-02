@@ -5,7 +5,7 @@ from app import db
 
 
 def add_user_to_db(input_user: dict) -> None:
-    """"""
+    """Добавление пользоватя в базу данных"""
     user = DBModel.User(
         name=input_user['name'],
         surname=input_user['surname'],
@@ -21,9 +21,14 @@ def add_user_to_db(input_user: dict) -> None:
     return
 
 
-def remove_user_from_db() -> None:
-    """"""
-    pass
+def remove_user_from_db(data_input: json) -> json:
+    """Удаление пользователя из базы данных"""
+    try:
+        u = DBModel.Task.query.filter_by(id=data_input['id']).first()
+    except Exception as error:
+        return return_error(error)
+    db.session.delete(u)
+    return return_ok()
 
 
 def user_authorization(user_username: str, user_email: str, user_password: str) -> json:
